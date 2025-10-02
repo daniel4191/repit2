@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <nav id="posts">
+        <a href="/posts/"><h1>Noabo</h1></a>
+    </nav>
+    <div id="post-detail">
+        <ul>
+            <div>
+                <li>{{post.title}}</li>
+                <li>{{post.content}}</li>
+            </div>
+            <div>
+                {% if post.thumbnail %}
+                    <img src="{{post.thumbnail.url}}" alt="">
+                {%else%}
+                    <img src="" alt="">
+                {% endif %}
+                
+            </div>
+            {% for comment in post.comment_set.all %}
+                <li>{{comment.comment}}</li>
+            {%empty%}
+                <li>아직 작성된 댓글이 없습니다.</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <form action="" method="post">
+        {% csrf_token %}
+        <textarea name="comment" id=""></textarea>
+        <button type="submit" class="btn btn-primary">작성완료</button>
+    </form>
+</body>
+</html>

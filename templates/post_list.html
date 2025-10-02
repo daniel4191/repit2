@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>post list</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <nav id="posts">
+        <h1>Noabo</h1>
+        <a href="/posts/add/" class="btn btn-primary">글 작성</a>
+    </nav>
+    <div id="posts">
+        {% for post in posts %}
+            <ul>
+                <li class="title">{{post.title}}</li>
+                <li>{{post.content}}</li>
+            </ul>
+            <img src="{{post.thumbnail.url}}" alt="">
+            {% for comment in post.comment_set.all %}
+                <li>{{comment.comment}}</li>
+            {%empty%}
+                <li>등록된 댓글이 없습니다.</li>
+            {% endfor %}  
+        {% endfor %}
+    </div>
+</body>
+</html>
